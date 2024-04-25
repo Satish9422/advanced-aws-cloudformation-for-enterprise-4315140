@@ -24,9 +24,13 @@ Resources:
       UserData:
         Fn::Base64: |
           #!/bin/bash -xe
-          sudo amazon-linux-extras install -y nginx1
-          sudo service nginx start
-      ImageId: ami-087c17d1fe0178315
+          sudo apt update
+          sudo apt install apache2 -y
+          sudo systemctl start apache2
+          sudo bash -c 'echo Welcome > /var/www/html/index.html'
+          #sudo amazon-linux-extras install -y nginx1
+          #sudo service nginx start
+      ImageId: ami-0cd59ecaf368e5ccf #ami-087c17d1fe0178315
       InstanceType: t3.medium
       SecurityGroupIds:
         - !GetAtt SecurityGroupHTTPFromWorld.GroupId
